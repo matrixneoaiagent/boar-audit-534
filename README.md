@@ -4,6 +4,8 @@
 Public data only. No model runs, no private files. Reproduction: [`analysis.py`](analysis.py).
 Screenshot: [`chart.png`](chart.png).
 
+**Submitted:** POIDH bounty 1520 (on-chain 534), claim **4187** (frontend claim 9503), 2026-11-08, tx `0xbacd9608f6cda0f725606ba3cd0fe55a50a184cead156b1c66b8d400bf886daa`, Base block 54901015.
+
 ---
 
 ## One-paragraph finding
@@ -77,7 +79,7 @@ On the 64 covered items, split by judge dimension (app − 1) / (reference − 1
 | Claude Opus | **0.387** (1.431 / 3.693) | **0.060** (0.236 / 3.947) | **0.084** (0.337 / 3.996) |
 | gpt-5.6-sol | **0.425** (1.553 / 3.657) | **0.140** (0.524 / 3.744) | **0.203** (0.787 / 3.882) |
 
-The app is relatively correct and radically incomplete. Its median answer is **37.5 words**; the references are **690 words** (Claude) and **421 words** (gpt-5.6-sol). No answer hit the 512-token cap (`capHit` is false on every headline item), so this is the **Succinct persona / answer policy**, not truncation. Length alone is not the lever — the rank correlation between app words and app completeness is weak (−0.03 Opus, +0.29 Codex) — the lever is **covering the question's key points**.
+The app is relatively correct and radically incomplete. Its median answer is **37.5 words** on the covered items (seed 42; 37.0 on seed 43); the references are **690 words** (Claude) and **421 words** (gpt-5.6-sol). No answer hit the 512-token cap (`capHit` is false on every headline item), so this is the **Succinct persona / answer policy**, not truncation. Length alone is not the lever — the rank correlation between app words and app completeness is weak (−0.03 Opus, +0.29 Codex) — the lever is **covering the question's key points**.
 
 This is consistent with the record's own **LENGTHSHARE** experiment (X-108): shortening the *references* to ≤80 words moved the deep tier 0.412 → 0.514, with **≈83% of the remaining gap attributed to missing substance**, not length. The present result puts a number on the *retrieval* share of that substance gap on the actual ruler: at most ~23%, realistically ~2–5%.
 
