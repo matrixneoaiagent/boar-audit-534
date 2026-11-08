@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+  * { box-sizing: border-box; }
+  body { margin:0; background:#0d1117; color:#e6edf3; font-family: "DejaVu Sans", Arial, sans-serif; }
+  .wrap { width: 1400px; padding: 38px 48px 30px; }
+  h1 { font-size: 34px; line-height:1.15; margin:0 0 6px; letter-spacing:-.4px; }
+  .sub { color:#9da7b3; font-size:16px; margin:0 0 26px; }
+  .sub b { color:#e6edf3; }
+  .grid { display:flex; gap:40px; }
+  .panel { flex:1; background:#161b22; border:1px solid #30363d; border-radius:12px; padding:20px 22px 16px; }
+  .ptitle { font-size:19px; font-weight:700; margin:0 0 2px; }
+  .pnote { color:#8b949e; font-size:12.5px; margin:0 0 16px; }
+  .chart { position:relative; height:300px; border-left:1px solid #30363d; border-bottom:1px solid #30363d; margin:0 0 8px 46px; }
+  .bar { position:absolute; bottom:0; width:52px; border-radius:5px 5px 0 0; }
+  .bar span { position:absolute; top:-24px; left:50%; transform:translateX(-50%); font-size:13px; font-weight:700; white-space:nowrap; }
+  .lbl { position:absolute; bottom:-26px; left:50%; transform:translateX(-50%); font-size:12px; color:#9da7b3; white-space:nowrap; }
+  .barline { position:absolute; left:0; right:0; border-top:2px dashed #f0883e; z-index:2; }
+  .barline span { position:absolute; right:4px; top:-22px; color:#f0883e; font-size:12.5px; font-weight:700; background:#161b22; padding:0 4px; }
+  .yax { position:absolute; left:-42px; font-size:11.5px; color:#8b949e; transform:translateY(50%); }
+  .yleg { position:absolute; left:-46px; bottom:-2px; font-size:11px; color:#8b949e; }
+  table { border-collapse:collapse; width:100%; margin-top:26px; font-size:14px; }
+  th,td { text-align:right; padding:8px 10px; border-bottom:1px solid #21262d; }
+  th:first-child, td:first-child { text-align:left; }
+  th { color:#8b949e; font-weight:600; font-size:12.5px; text-transform:uppercase; letter-spacing:.04em; }
+  .good { color:#3fb950; } .bad { color:#f85149; } .amber { color:#f0883e; }
+  .foot { color:#8b949e; font-size:12.5px; line-height:1.55; margin-top:16px; }
+  .foot b { color:#c9d1d9; }
+  .kicker { display:inline-block; background:#1f6feb22; border:1px solid #1f6feb66; color:#79c0ff; font-size:12.5px; font-weight:700; letter-spacing:.06em; padding:4px 9px; border-radius:999px; margin-bottom:12px; }
+  .big { color:#f0883e; }
+</style></head><body><div class="wrap">
+<div class="kicker">POIDH #534 / ON-CHAIN 534 · DEVICE-FINAL v0.4 · PUBLIC TRACES</div>
+<h1>Retrieval is not the wall: even perfect retrieval leaves the phone at <span class="big">0.22 / 0.30</span> vs the 0.50 bar</h1>
+<p class="sub">The published U-total reproduces exactly (0.165 / 0.242). Decomposing it by the trace's own <b>kept-source</b> flag shows that the 7 items with no source kept carry only 10% of the weight; fixing all of them cannot close the gap. The missing mass is <b>completeness</b>, not retrieval coverage.</p>
+
+<div class="grid">
+  <div class="panel">
+    <p class="ptitle">Claude Opus judge</p>
+    <p class="pnote">71 headline items · seeds 42+43 pooled · health weight 0.5</p>
+    <div class="chart">
+      <div class="barline" style="bottom:90.9%"><span>0.50 bar</span></div>
+      <div class="yax" style="bottom:90.9%">0.50</div>
+      <div class="yax" style="bottom:45.45%">0.25</div>
+      <div class="yleg">0</div>
+      <div class="bar" style="height:29.9%; left:7%; background:#8b949e"><span>0.165</span><div class="lbl">U-total</div></div>
+      <div class="bar" style="height:31.3%; left:29%; background:#58a6ff"><span>0.172</span><div class="lbl">covered (64)</div></div>
+      <div class="bar" style="height:8.7%; left:51%; background:#f85149"><span>0.048</span><div class="lbl">uncovered (7)</div></div>
+      <div class="bar" style="height:40.6%; left:73%; background:#3fb950"><span>0.223</span><div class="lbl">perfect N</div></div>
+    </div>
+  </div>
+  <div class="panel">
+    <p class="ptitle">OpenAI gpt-5.6-sol judge</p>
+    <p class="pnote">71 headline items · seeds 42+43 pooled · health weight 0.5</p>
+    <div class="chart">
+      <div class="barline" style="bottom:90.9%"><span>0.50 bar</span></div>
+      <div class="yax" style="bottom:90.9%">0.50</div>
+      <div class="yax" style="bottom:45.45%">0.25</div>
+      <div class="yleg">0</div>
+      <div class="bar" style="height:44.1%; left:7%; background:#8b949e"><span>0.242</span><div class="lbl">U-total</div></div>
+      <div class="bar" style="height:46.1%; left:29%; background:#58a6ff"><span>0.254</span><div class="lbl">covered (64)</div></div>
+      <div class="bar" style="height:13.5%; left:51%; background:#f85149"><span>0.075</span><div class="lbl">uncovered (7)</div></div>
+      <div class="bar" style="height:54.8%; left:73%; background:#3fb950"><span>0.301</span><div class="lbl">perfect N</div></div>
+    </div>
+  </div>
+</div>
+
+<table>
+<tr><th>Pooled seeds 42+43</th><th>U-total</th><th>U on covered (64)</th><th>U on uncovered (7)</th><th>Perfect-retrieval bound</th><th>Gap left after perfect retrieval</th><th>Retrieval share of gap</th></tr>
+<tr><td>Claude Opus</td><td>0.165</td><td>0.172</td><td>0.048</td><td class="amber">0.223</td><td>0.277</td><td>17.5%</td></tr>
+<tr><td>gpt-5.6-sol</td><td>0.242</td><td>0.254</td><td>0.075</td><td class="amber">0.301</td><td>0.199</td><td>22.8%</td></tr>
+</table>
+
+<p class="foot"><b>Perfect-retrieval bound:</b> all 7 uncovered items scored exactly like their frontier reference (u = r) — an unattainable upper bound on what fixing retrieval coverage could buy. Even then the covered 64 would need U ≈ <b>0.467</b> to reach 0.50, i.e. <b>2.7× / 1.8×</b> their current level. On the covered items the app's (score−1) is 0.39 / 0.43 of the reference on <b>correctness</b>, but only 0.06 / 0.14 on <b>completeness</b>. The lever is answer coverage / key points, not retrieval coverage. 5 of the 7 uncovered items are health-gate fixed-text refusals, not retrieval failures. Bootstrap CIs (B=2000, item, seed 11): U<sub>covered</sub> 0.172 [0.141, 0.200] / 0.254 [0.214, 0.290]; bound 0.223 [0.182, 0.263] / 0.301 [0.254, 0.345]. All below 0.50. <b>Reproduction and data:</b> github.com/matrixneoaiagent/boar-audit-534</p>
+</div></body></html>
